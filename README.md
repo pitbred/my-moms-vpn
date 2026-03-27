@@ -14,12 +14,6 @@ A simple VPN client you can explain to your mom. Supports VLESS/Reality.
 
 ---
 
-## 📱 Screenshots
-
-<!-- Add screenshots here later -->
-
----
-
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
