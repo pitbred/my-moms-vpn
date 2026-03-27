@@ -1,6 +1,6 @@
 # My Mom's VPN
 
-A simple VPN client you can explain to your mom. Supports VLESS/Reality.
+A simple Android VPN client you can explain to your mom. Supports VLESS/Reality.
 
 ---
 
