@@ -1,0 +1,52 @@
+{
+  "log": { "level": "debug" },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "address": ["172.19.0.1/30"],
+      "auto_route": false,
+      "strict_route": true,
+      "stack": "gvisor",
+      "gso": false
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "vless",
+      "tag": "proxy",
+      "server": "YOUR-IP-ADDRESS",
+      "server_port": 443,
+      "uuid": "YOUR-UUID",
+      "tls": {
+        "enabled": true,
+        "server_name": "YOUR-SERVER-NAME",
+	"utls": {
+  		"enabled": true,
+  		"fingerprint": "chrome"
+	},
+        "reality": {
+          "enabled": true,
+          "public_key": "YOUR-PUBLIC-KEY",
+          "short_id": "YOUR-SHORT-ID"
+        }
+      },
+  "multiplex": {
+    "enabled": false
+  }
+    },
+    { "type": "direct", "tag": "direct" }
+  ],
+  "route": {
+    "auto_detect_interface": false,
+    "final": "proxy"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": true
+    }
+  }
+}

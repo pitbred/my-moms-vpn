@@ -1,0 +1,27 @@
+# Указывает, что это главный конфиг, выше искать не нужно
+root = true
+
+[*.{kt,kts}]
+ktlint_standard_no-wildcard-imports = disabled
+# Если используете IntelliJ стиль, также добавьте:
+ij_kotlin_packages_to_use_import_on_demand = unset
+# Базовые отступы
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+# Специфические настройки ktlint
+# Стиль кода: ktlint_official, intellij_idea или android_studio
+ktlint_code_style = ktlint_official
+
+# Максимальная длина строки (стандарт для Kotlin — 120, для Android — 100)
+max_line_length = 120
+
+# Настройка запятых (trailing commas)
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+
+# Отключение конкретных правил (если нужно)
+# ktlint_standard_no-wildcard-imports = disabled
