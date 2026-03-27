@@ -24,6 +24,10 @@ git clone https://github.com/pitbred/my-moms-vpn.git
 
 ### 2. Add required dependency
 
+```
+npm install
+```
+
 This project depends on `libbox.aar`, which is **not included** in the repository.
 
 `libbox.aar` is a prebuilt Android library from the **sing-box** project.
