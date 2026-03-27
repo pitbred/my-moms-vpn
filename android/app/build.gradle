@@ -108,7 +108,7 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file(System.getenv("MYAPP_KEYSTORE") ?: "")
+            storeFile file(System.getenv("MYAPP_KEYSTORE") ?: "my-upload-key.keystore")
             storePassword System.getenv("MYAPP_KEYSTORE_PASSWORD")
             keyAlias System.getenv("MYAPP_KEY_ALIAS")
             keyPassword System.getenv("MYAPP_KEY_PASSWORD")
@@ -122,8 +122,8 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             minifyEnabled true
             shrinkResources true
-            //signingConfig signingConfigs.debug 
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug 
+            //signingConfig signingConfigs.release
             crunchPngs true
         }
     }
