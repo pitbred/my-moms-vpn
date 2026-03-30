@@ -1,3 +1,5 @@
+<img src="./assets/images/icon.png" height="100"/>
+
 # My Mom's VPN
 
 A simple Android VPN client you can explain to your mom. Supports VLESS/Reality.
@@ -14,7 +16,18 @@ A simple Android VPN client you can explain to your mom. Supports VLESS/Reality.
 
 ---
 
+## Screenshots
+
+<p>
+  <img src="./assets/images/vpn-home.jpg" height="200" />
+  <img src="./assets/images/vpn-apps.jpg" height="200" />
+  <img src="./assets/images/vpn-settings.jpg" height="200" />  
+</p>
+
+---
+
 ## 🚀 Getting Started
+
 
 ### 1. Clone the repository
 
@@ -32,6 +45,13 @@ This project depends on `libbox.aar`, which is **not included** in the repositor
 
 `libbox.aar` is a prebuilt Android library from the **sing-box** project.
 It contains the core VPN functionality (VLESS / Reality, networking stack, etc.) used by this app.
+
+Tested with:
+
+* sing-box commit: fcc6017418fabc74af34c6f49b8ba2c9d55894a1
+* or version: v1.14.0-alpha.5 (if applicable)
+
+⚠️ Using a different version may introduce breaking changes and cause build errors.
 
 #### 📦 How to add
 
