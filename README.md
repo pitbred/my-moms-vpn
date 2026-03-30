@@ -19,9 +19,9 @@ A simple Android VPN client you can explain to your mom. Supports VLESS/Reality.
 ## Screenshots
 
 <p>
-  <img src="./assets/images/vpn-home.jpg" height="200" />
-  <img src="./assets/images/vpn-apps.jpg" height="200" />
-  <img src="./assets/images/vpn-settings.jpg" height="200" />  
+  <img src="./assets/images/vpn-home.jpg" height="400" />
+  <img src="./assets/images/vpn-apps.jpg" height="400" />
+  <img src="./assets/images/vpn-settings.jpg" height="400" />  
 </p>
 
 ---
