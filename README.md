@@ -141,8 +141,9 @@ That's it.
 
 ## ❤️ Support Development
 
-If you find this project useful, consider supporting development:
+If you find this project useful:
 
+* ⭐ Give this repo a star — it really helps
 * GitHub Sponsors (coming soon)
 * Crypto (coming soon)
 
