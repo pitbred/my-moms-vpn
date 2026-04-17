@@ -51,3 +51,26 @@ export type LogsContextType = {
   appendLogs: (logs: string[]) => void;
   clearLogs: () => void;
 };
+
+export type VpnConfig = {
+  server: string;
+  port: number;
+  uuid: string;
+  sni: string;
+  key: string;
+  id: string;
+};
+
+export type VpnProps = {
+  onConfigReceived: (config: VpnConfig) => void;
+};
+
+export type BottomSheetProps = {
+    visible: boolean;
+    onDismiss: () => void;
+    children: React.ReactNode;
+};
+export type FormProps = {
+    onSubmit: (login: string, password: string) => void;
+    loading?: boolean;
+};

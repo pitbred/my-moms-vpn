@@ -27,8 +27,7 @@ export default function HomeScreen() {
     const isConnected = status === 'connected';
 
     const onToggle = async () => {
-        console.log(status)
-
+        
         if (status !== 'connected') {
             const exists = await L7Vpn.hasUserConfig()
             if (exists) {
@@ -71,7 +70,7 @@ export default function HomeScreen() {
 
     React.useEffect(() => {
         if (error) {
-            console.log('ERROR from Kotlin: ' + error)
+            //console.log('ERROR from Kotlin: ' + error)
             confirm({
                 title: t('error'),
                 message: error,
@@ -104,9 +103,7 @@ export default function HomeScreen() {
             <Button
                 mode="contained"
                 disabled={status === 'connecting'}
-                onPress={() => {
-                    console.log(status)
-                    console.log('error:  ' + error)
+                onPress={() => {                   
                     onToggle()
                 }}
                 style={[

@@ -61,4 +61,12 @@ export default {
   values: 'Значения',
   edit: 'Изменить',
   vpnServer: 'VPN-сервер',
+
+  getVPN: 'Получить VPN',
+  netError: 'Ошибка сети',
+  success: 'Успех!',
+  saveConfig: 'Сохраните конфиг и перезапустите VPN',
+  loginWarn: 'Только буквы и цифры',
+  enterPassword: 'Введите пароль',
+  obtain: 'Получить',  
 }

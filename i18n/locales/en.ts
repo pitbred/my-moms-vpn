@@ -61,4 +61,12 @@ export default {
   values: 'Values',
   edit: 'Edit',
   vpnServer: 'VPN Server',
+
+  getVPN: 'Get VPN',
+  netError: 'Network error',
+  success: 'Success!',
+  saveConfig: 'Save the configuration and restart VPN',
+  loginWarn: 'Only letters and numbers are allowed',
+  enterPassword: 'Enter password',
+  obtain: 'Get',
 }

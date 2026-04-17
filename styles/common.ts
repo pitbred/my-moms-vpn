@@ -181,6 +181,11 @@ export const commonStyles = StyleSheet.create({
         left: 0,
         bottom: 0
     },
+    fabNewVPN: {
+        right: 16,
+        bottom: 16,
+        alignSelf: 'flex-end',
+    },
     bottom70: {
         bottom: 70
     },
@@ -201,12 +206,31 @@ export const commonStyles = StyleSheet.create({
         gap: 8
     },
     fileName: {
-		position: 'absolute',
-		top: 10,
-		right: 12,
-		paddingHorizontal: 8,
-		paddingVertical: 2,
-		borderRadius: 4,
-		opacity: 0.8,
-	},
+        position: 'absolute',
+        top: 10,
+        right: 12,
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 4,
+        opacity: 0.8,
+    },
+    backdrop: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+    },
+    sheet: {
+        position: 'absolute',
+        left: 0,
+        right: 0,        
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        paddingBottom: 16,
+    },
+    handle: {
+        width: 36,
+        height: 4,
+        borderRadius: 2,
+        alignSelf: 'center',
+        marginVertical: 8,
+    },
 });

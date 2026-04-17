@@ -136,9 +136,20 @@ class L7VpnService : VpnService() {
         const val TAG = "L7VPN"
         const val ACTION_STOP = "L7VPN_STOP"
         const val ACTION_START = "L7VPN_START"
+
+        init {
+            try {
+                // Устанавливаем флаг максимально рано
+                android.system.Os.setenv("GODEBUG", "runtime_epoll_pwait2=0", true)
+                //android.util.Log.d("L7VPN", "GODEBUG set to runtime_epoll_pwait2=0")
+            } catch (e: Exception) {
+                //android.util.Log.e("L7VPN", "Failed to set GODEBUG", e)
+            }
+        }
     }
 
     override fun onCreate() {
+
         super.onCreate()
 
         // Foreground notification (обязательно для VPN)
@@ -299,7 +310,7 @@ class L7VpnService : VpnService() {
 
     private fun startVpn() {
         try {
-            Libbox.redirectStderr(File(filesDir, "libbox-stderr.log").absolutePath)
+            //Libbox.redirectStderr(File(filesDir, "libbox-stderr.log").absolutePath)
             //android.util.Log.d("LIBBOX", "libbox version = " + Libbox.version())
 
             //android.util.Log.i(TAG, "Starting VPN...")
@@ -428,6 +439,10 @@ class L7VpnService : VpnService() {
                     override fun writeDebugMessage(m: String?) {
                         //android.util.Log.d("LIBBOX", m ?: "")
                     }
+
+                    override fun triggerNativeCrash() {
+                        // noop или лог
+                    }
                 }
 
             // 4) Создаём сервер
@@ -496,6 +511,10 @@ class L7VpnService : VpnService() {
             """.trimIndent()
                     )
                     */
+                }
+
+                override fun writeOutbounds(it: OutboundGroupItemIterator) {
+                    // пока пусто
                 }
             }
 

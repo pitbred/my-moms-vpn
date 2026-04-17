@@ -48,8 +48,7 @@ It contains the core VPN functionality (VLESS / Reality, networking stack, etc.)
 
 Tested with:
 
-* sing-box commit: fcc6017418fabc74af34c6f49b8ba2c9d55894a1
-* or version: v1.14.0-alpha.5 (if applicable)
+* or version: v1.14.0-alpha.13 (if applicable)
 
 ⚠️ Using a different version may introduce breaking changes and cause build errors.
 

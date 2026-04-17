@@ -1,3 +1,5 @@
+import { BottomSheet } from '@/components/BottomSheet';
+import { GetVpnForm } from '@/components/GetVpnForm';
 import { useConfirm } from "@/hooks/useConfirm";
 import { useVpn } from '@/hooks/useVpn';
 import { L7Vpn } from '@/native/L7Vpn';
@@ -21,6 +23,7 @@ import {
     ActivityIndicator,
     Button,
     Card,
+    FAB,
     IconButton,
     SegmentedButtons,
     Snackbar,
@@ -62,6 +65,7 @@ export default function SettingsScreen() {
     const { newConfig } = useLocalSearchParams()
     const [flag, setFlag] = useState<string>('🌐')
     const [initialHash, setInitialHash] = useState<string>('')
+    const [visible, setVisible] = useState(false);
 
     const simpleJson = JSON.stringify({
         server,
@@ -576,6 +580,17 @@ export default function SettingsScreen() {
                     </KeyboardProvider>
                 )
             }
+            {
+                mode === 'simple' ? (
+                    <FAB
+                        icon="plus"
+                        label={t('getVPN')}
+                        customSize={40}
+                        style={cs.fabNewVPN}
+                        onPress={() => setVisible(true)}
+                    />
+                ) : null
+            }
             <Snackbar
                 visible={snackbar.visible}
                 duration={3000}
@@ -587,6 +602,81 @@ export default function SettingsScreen() {
             >
                 {snackbar.message}
             </Snackbar>
+            <BottomSheet
+                visible={visible}
+                onDismiss={() => setVisible(false)}
+            >
+                <GetVpnForm
+                    loading={loading}
+                    onSubmit={async (login, password) => {
+                        let gotConfig = false;
+                        try {
+                            setLoading(true);
+
+                            const res = await fetch("https://sbox.pitbred.com:9090/auth", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ login, password }),
+                            });
+
+                            if (!res.ok) {
+                                throw new Error(`HTTP ${res.status}`);
+                            }
+
+                            const data = await res.json();
+
+                            if (data.error) {
+                                confirm({
+                                    title: t('error'),
+                                    message: data.error,
+                                })
+                                return;
+                            } else if (!data.server || !data.uuid || !data.port || !data.sni || !data.key || !data.id) {
+                                confirm({
+                                    title: t('error'),
+                                    message: 'Invalid server response',
+                                });
+                                return;
+                            } else {
+                                gotConfig = true;
+
+                                const server = data?.server || '';
+                                const port = String(data.port ?? '443')
+                                const uuid = data?.uuid || '';
+                                const serverName = data?.sni || '';
+                                const publicKey = data?.key || '';
+                                const shortId = data?.id || '';
+
+                                setServer(server)
+                                setPort(port)
+                                setUuid(uuid)
+                                setServerName(serverName)
+                                setPublicKey(publicKey)
+                                setShortId(shortId)
+                            }
+
+                            console.log("VPN CONFIG:", data);
+
+                        } catch (e) {
+                            confirm({
+                                title: t('error'),
+                                message: t('netError'),
+                            })
+                        } finally {
+                            setLoading(false);
+                            if (gotConfig) {
+                                setVisible(false);
+                                confirm({
+                                    title: t('success'),
+                                    message: t('saveConfig'),
+                                })
+                            }
+                        }
+                    }}
+                />
+            </BottomSheet>
         </View >
     )
 }
