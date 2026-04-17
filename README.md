@@ -48,7 +48,7 @@ It contains the core VPN functionality (VLESS / Reality, networking stack, etc.)
 
 Tested with:
 
-* or version: v1.14.0-alpha.13 (if applicable)
+* **libbox** from  **sing-box** version: v1.14.0-alpha.13
 
 ⚠️ Using a different version may introduce breaking changes and cause build errors.
 
