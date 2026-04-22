@@ -22,8 +22,8 @@ export const VpnProvider = ({ children }: { children: React.ReactNode }) => {
     const downTotal = downAccum + down
 
     const startVpn = React.useCallback(async () => {
-        const ok = await L7Vpn.prepare()
-        if (ok) {
+        const res = await L7Vpn.prepare()
+        if (res === 'ALREADY_GRANTED') {
             await L7Vpn.start()
         }
     }, [])

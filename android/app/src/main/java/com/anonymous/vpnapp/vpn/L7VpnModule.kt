@@ -21,6 +21,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.modules.core.DeviceEventManagerModule
+import com.facebook.react.bridge.ActivityEventListener
 import org.json.JSONArray
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -28,11 +29,23 @@ import java.io.IOException
 import java.net.NetworkInterface
 import java.util.Collections
 
-
 class L7VpnModule(
     private val reactContext: ReactApplicationContext,
-) : ReactContextBaseJavaModule(reactContext) {
+) : ReactContextBaseJavaModule(reactContext), ActivityEventListener {
     override fun getName(): String = "L7Vpn"
+
+    override fun onActivityResult(
+        activity: Activity,
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        if (requestCode == 9001 && resultCode == Activity.RESULT_OK) {
+            startInternal()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {}
 
     private fun readConfig(): String {
         val userFile = File(reactApplicationContext.filesDir, "config.json")
@@ -84,6 +97,7 @@ class L7VpnModule(
         }
 
     init {
+        reactContext.addActivityEventListener(this)
         instance = this
 
         // Регистрация приемника при инициализации модуля
@@ -125,7 +139,7 @@ class L7VpnModule(
                             } else {
                                 // Если логов нет, шлем пустой массив, чтобы JS не ругался на undefined
                                 putArray("logs", Arguments.createArray())
-                            }                         
+                            }
                         }
                     // Отправляем событие в JS через EventEmitter
                     reactContext
@@ -137,7 +151,7 @@ class L7VpnModule(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Context.RECEIVER_NOT_EXPORTED else 0,
         )
     }
-    
+
     @ReactMethod
     fun prepare(promise: Promise) {
         val activity: Activity? = reactContext.currentActivity
@@ -155,12 +169,16 @@ class L7VpnModule(
         }
     }
 
-    @ReactMethod
-    fun start(promise: Promise) {
-        updateStatus("connecting") // Локально обновляем, пока сервис запускается
+    private fun startInternal() {
+        updateStatus("connecting")
         val i = Intent(reactContext, L7VpnService::class.java)
         i.action = L7VpnService.ACTION_START
         reactContext.startService(i)
+    }
+
+    @ReactMethod
+    fun start(promise: Promise) {
+        startInternal()
         promise.resolve(true)
     }
 
@@ -184,8 +202,8 @@ class L7VpnModule(
             currentStatus = "connected"
         }
 
-        if (currentStatus == "stopping") {            
-            updateStatus("disconnected")           
+        if (currentStatus == "stopping") {
+            updateStatus("disconnected")
         }
 
         promise.resolve(currentStatus)
@@ -261,7 +279,7 @@ class L7VpnModule(
                     obj.putString("packageName", resolveInfo.activityInfo.packageName)
 
                     val iconDrawable = resolveInfo.loadIcon(pm)
-                    val iconBase64 = drawableToBase64(iconDrawable)              
+                    val iconBase64 = drawableToBase64(iconDrawable)
 
                     obj.putString("icon", iconBase64)
                     result.pushMap(obj)

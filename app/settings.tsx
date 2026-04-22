@@ -657,7 +657,7 @@ export default function SettingsScreen() {
                                 setShortId(shortId)
                             }
 
-                            console.log("VPN CONFIG:", data);
+                            //console.log("VPN CONFIG:", data);
 
                         } catch (e) {
                             confirm({
